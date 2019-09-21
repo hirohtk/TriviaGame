@@ -2,45 +2,6 @@ var questionSet = {
 
     question1: "What Is The Boiling Point Of Water In Fahrenheit?",
     q1Options: {
-        firstQuestion: function () {
-            timeStart();
-
-            console.log(questionSet.question1);
-            $(".currentQuestion").text(questionSet.question1);
-            $(".answer1").text(questionSet.q1Options.q1O1);
-            $(".answer2").text(questionSet.q1Options.q1O2);
-            $(".answer3").text(questionSet.q1Options.q1O3);
-            $(".answer4").text(questionSet.q1Options.q1O4);
-            $(".answer1").one("click", wrong);
-            $(".answer2").one("click", wrong);
-            $(".answer3").one("click", correct);
-            $(".answer4").one("click", wrong);
-
-        },
-        correct: function () {
-            console.log("correct!");
-            hideAnswers();
-            correctAnswers++;
-            $(".rightAnswer").text("Correct!");
-            $(".rightAnswer").append("<p>" + this.answer + "</p>")
-            stopTimer();
-            $(".timeRemaining").addClass("emptySpace");
-        },
-
-        wrong: function () {
-            console.log("wrong!");
-            hideAnswers();
-            wrongAnswers++;
-            $(".rightAnswer").text("Incorrect");
-            $(".rightAnswer").append("<p> Correct answer is" + " " + this.answer + "</p>");
-            stopTimer();
-            $(".timeRemaining").addClass("emptySpace");
-        },
-        timeUp: function() {
-            wrongAnswers++;
-        $(".rightAnswer").text("Times up!");
-        $(".rightAnswer").append("<p> Correct answer is" + " " + this.answer + "</p>");
-        },
         q1O1: "100 Degrees",
         q1O2: "188 Degrees",
         q1O3: "212 Degrees",
@@ -110,6 +71,10 @@ var correct = "Correct!"
 
 var intervalId;
 
+var currentQuestionNumber;
+var currentAnswer;
+
+$(document).ready(function () {
 
     function hideAnswers() {
         $(".answer1").unbind("click");
@@ -122,8 +87,26 @@ var intervalId;
         $(".answer4").addClass("hidden");
     }
 
-
-
+    function getCurrentAnswer (){
+        if (currentQuestionNumber === 1) {
+            currentAnswer = questionSet.q1Options.answer;
+        }
+        else if (currentQuestionNumber === 2) {
+            currentAnswer = questionSet.q2Options.answer;
+        }
+        else if (currentQuestionNumber === 3) {
+            currentAnswer = questionSet.q3Options.answer;
+        }
+        else if (currentQuestionNumber === 4) {
+            currentAnswer = questionSet.q4Options.answer;
+        }
+        else if (currentQuestionNumber === 5) {
+            currentAnswer = questionSet.q5Options.answer;
+        }
+        else {
+            currentAnswer = questionSet.q6Options.answer;
+        }
+    }
 
     function timeStart() {
         intervalId = setInterval(decrement, 1000); // setting interval.  every 1 second, perform decrements 
@@ -150,7 +133,9 @@ var intervalId;
 
 
     function timeUp() {
-        //
+        wrongAnswers++;
+        $(".rightAnswer").text("Times up!");
+        $(".rightAnswer").append("<p> Correct answer is" + " " + currentAnswer + "</p>");
     }
 
     function initialize() {
@@ -159,20 +144,45 @@ var intervalId;
         $(".start").addClass("hidden");
         $(".startButton").unbind("click");
 
-        // TEMPORARY COMMENT questionOne();
-        questionSet.q1Options.firstQuestion();
+        questionOne();
+        //questionSet.q1Options.firstQuestion();
     }
 
     function correct() {
-        //
+        console.log("correct!");
+            hideAnswers();
+            correctAnswers++;
+            $(".rightAnswer").text("Correct!");
+            $(".rightAnswer").append("<p>" + currentAnswer + "</p>")
+            stopTimer();
+            $(".timeRemaining").addClass("emptySpace");
     }
     function wrong() {
-        //
+        console.log("wrong!");
+            hideAnswers();
+            wrongAnswers++;
+            $(".rightAnswer").text("Incorrect");
+            $(".rightAnswer").append("<p> Correct answer is" + " " + currentAnswer + "</p>");
+            stopTimer();
+            $(".timeRemaining").addClass("emptySpace");
     }
 
     function questionOne() {
+        currentQuestionNumber = 1;
+        getCurrentAnswer();
+        timeStart();
 
-        //
+            console.log(questionSet.question1);
+            $(".currentQuestion").text(questionSet.question1);
+            $(".answer1").text(questionSet.q1Options.q1O1);
+            $(".answer2").text(questionSet.q1Options.q1O2);
+            $(".answer3").text(questionSet.q1Options.q1O3);
+            $(".answer4").text(questionSet.q1Options.q1O4);
+            $(".answer1").one("click", wrong);
+            $(".answer2").one("click", wrong);
+            $(".answer3").one("click", correct);
+            $(".answer4").one("click", wrong);
+
 
         /*for (var i = 0; i < 7; i++) (function (i) {
             console.log(questionSet.question[i]);
@@ -194,4 +204,4 @@ var intervalId;
     gameStart();
 
 
-
+});
