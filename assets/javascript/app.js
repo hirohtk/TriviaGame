@@ -11,7 +11,7 @@ var questionSet = {
 
     question2: "What Is The Most Common Metal On Earth?",
     q2Options: {
-        q2O1: "Iron",
+        q2O1: "Iron", 
         q2O2: "Copper",
         q2O3: "Aluminum",
         q2O4: "Nickel",
@@ -185,12 +185,14 @@ $(document).ready(function () {
 
 
         /*for (var i = 0; i < 7; i++) (function (i) {
+
             console.log(questionSet.question[i]);
             $(".currentQuestion").text(questionSet.question[i]);
-            $(".answer1").text(q[i]Options.q1O1);
-            $(".answer2").text(q[i]Options.q1O2);
-            $(".answer3").text(q1Options.q1O3);
-            $(".answer4").text(q1Options.q1O4);
+            $(".answer1").text(q[i]Options.q[i]O1);
+            $(".answer2").text(q[i]Options.q[i]O2);
+            $(".answer3").text(q[i]Options.q[1]O3);
+            $(".answer4").text(q[i]Options.q[i]O4);
+
         } (i));*/
     }
 
