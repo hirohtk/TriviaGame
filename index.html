@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trivia Game!</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
@@ -15,61 +16,69 @@
     <div class="bg">
         <div class="outerContainer">
             <header>
-                <h1>Science Trivia Game!</h1>
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <h1 class="display-4">Science Trivia Game!</h1>
+                    </div>
+                </div>
+
             </header>
 
-            <div class="game">
-                <div class="timeRemaining">
-                    Time remaining: <span class="timeLeft"></span> Seconds
+            <div class="card">
+                <div class="game">
+                    <div class="timeRemaining">
+                        Time remaining: <span class="timeLeft"></span> Seconds
+                    </div>
+
+                    <div class="question">
+                        <h2>
+                            <p class="currentQuestion"></p>
+                        </h2>
+                    </div>
+
+                    <div class="correctAnswer">
+                        <h2>
+                            <p class="rightAnswer"></p>
+                        </h2>
+                    </div>
+
+                    <div class="answers">
+                        <h4>
+                            <p class="answer1"></p>
+                        </h4>
+                        <h4>
+                            <p class="answer2"></p>
+                        </h4>
+                        <h4>
+                            <p class="answer3"></p>
+                        </h4>
+                        <h4>
+                            <p class="answer4"></p>
+                        </h4>
+                    </div>
+
+                    <div class="correctPicture">
+                        <img class="answerPicture">
+                    </div>
                 </div>
 
-                <div class="question">
-                    <h2>
-                        <p class="currentQuestion"></p>
-                    </h2>
+                <div class="start">
+                    <button class="startButton">Start</button>
                 </div>
 
-                <div class="correctAnswer">
-                    <h2>
-                        <p class="rightAnswer"></p>
-                    </h2>
-                </div>
+                <div class="refresh">
+                    <div class="stats">
+                        <p class="correctAnswers"></p>
+                        <p class="wrongAnswers"></p>
+                        <p class="unanswered"></p>
+                    </div>
 
-                <div class="answers">
-                    <h3>
-                        <p class="answer1"></p>
-                    </h3>
-                    <h3>
-                        <p class="answer2"></p>
-                    </h3>
-                    <h3>
-                        <p class="answer3"></p>
-                    </h3>
-                    <h3>
-                        <p class="answer4"></p>
-                    </h3>
-                </div>
-
-                <div class="correctPicture">
-                    <img class="answerPicture">
+                    <div class="refreshButton">
+                        <button class="refreshButton">Start over?</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="start">
-                <button class="startButton">Start</button>
-            </div>
-
-            <div class="refresh">
-                <div class="stats">
-                    <p class="correctAnswers"></p>
-                    <p class="wrongAnswers"></p>
-                    <p class="unanswered"></p>
-                </div>
-
-                <div class="refreshButton">
-                    <button class="refreshButton">Start over?</button>
-                </div>
-            </div>
 
         </div>
 

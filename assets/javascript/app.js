@@ -25,7 +25,7 @@ var correctAnswers = 0;
 var wrongAnswers = 0;
 var unanswered = 0;
 
-var timer = 3;
+var timer = 10;
 
 var outOfTime = "Out of Time!";
 var incorrect = "Incorrect";
@@ -76,6 +76,7 @@ $(document).ready(function () {
 
     function timeStart() {
         intervalId = setInterval(decrement, 1000); // setting interval.  every 1 second, perform decrements 
+        console.log("timer STARTING");
 
     }
 
@@ -84,6 +85,7 @@ $(document).ready(function () {
         timer--; // take one second off from timer
 
         $(".timeLeft").text(timer); // update timer
+        console.log("SECOND ELAPSED / TIMER DECREMENTED");
 
         if (timer === 0) {
 
@@ -96,13 +98,18 @@ $(document).ready(function () {
     function stopTimer() {
 
         clearInterval(intervalId);  // emptys cubbyhole, remove setInterval
+        console.log("timer STOPPING");
     }
 
     function initialize() {
-
+        correctAnswers = 0;
+        wrongAnswers = 0;
+        unanswered = 0;
+        currentQuestionNumber = 1;
         $(".game").removeClass("hidden");
         $(".refresh").addClass("hidden");
         $(".start").addClass("hidden");
+        $(".refreshButton").unbind("click");
         $(".startButton").unbind("click");
         $(".question").removeClass("hidden");
         $(".correctAnswer").removeClass("hidden");
@@ -110,7 +117,7 @@ $(document).ready(function () {
         $(".timeRemaining").removeClass("hidden");
 
         questionOne();
-        
+
 
         //questionSet.q1Options.firstQuestion();
     }
@@ -121,33 +128,49 @@ $(document).ready(function () {
         $(".question").addClass("hidden");
         $(".correctAnswer").addClass("hidden");
         $(".answers").addClass("hidden");
+        $(".correctPicture").addClass("hidden");
         $(".correctAnswers").text("You answered" + " " + correctAnswers + " " + "questions correctly!");
         $(".wrongAnswers").text("You answered" + " " + wrongAnswers + " " + "questions wrong.");
         $(".unanswered").text("Number of questions you didn't answer was:" + " " + unanswered);
-        $(".refreshButton").one("click", gameStart);
+        $(".refreshButton").one("click", initialize);
 
     }
 
     function goToNextQuestion() {
         if (doneWithQuestion === true) {
+            $(".correctPicture").removeClass("hidden");
+
             console.log("going to next question");
             if (currentQuestionNumber === 2) {
-                setTimeout(questionTwo, 1000);
+                $(".answerPicture").attr("src", "assets/images/water.gif");
+                $(".answerPicture").addClass("gifs");
+                setTimeout(questionTwo, 3000);
             }
             else if (currentQuestionNumber === 3) {
-                setTimeout(questionThree, 1000);
+                $(".answerPicture").attr("src", "assets/images/aluminum.gif");
+                $(".answerPicture").addClass("gifs");
+                setTimeout(questionThree, 3000);
             }
             else if (currentQuestionNumber === 4) {
-                setTimeout(questionFour, 1000);
+                $(".answerPicture").attr("src", "assets/images/vulture.gif");
+                $(".answerPicture").addClass("gifs");
+                setTimeout(questionFour, 3000);
             }
             else if (currentQuestionNumber === 5) {
-                setTimeout(questionFive, 1000);
+                $(".answerPicture").attr("src", "assets/images/bees.gif");
+                $(".answerPicture").addClass("gifs");
+                setTimeout(questionFive, 3000);
             }
             else if (currentQuestionNumber === 6) {
-                setTimeout(questionSix, 1000);
+                $(".answerPicture").attr("src", "assets/images/lion.gif");
+                $(".answerPicture").addClass("gifs");
+                setTimeout(questionSix, 3000);
             }
             else if (currentQuestionNumber === 7) {
-                setTimeout(endOfGame, 1000);
+                $(".answerPicture").attr("src", "assets/images/moon.gif");
+                $(".answerPicture").addClass("gifs");
+                setTimeout(endOfGame, 3000);
+
             }
 
         }
@@ -169,6 +192,7 @@ $(document).ready(function () {
         $(".rightAnswer").removeClass("hidden");
         $(".rightAnswer").text("Correct!");
         $(".rightAnswer").append("<p>" + currentAnswer + "</p>")
+        $(".rightAnswer").attr("style", 'color:green');
         cleanUpAfterSelection();
 
     }
@@ -179,6 +203,7 @@ $(document).ready(function () {
         $(".rightAnswer").removeClass("hidden");
         $(".rightAnswer").text("Incorrect");
         $(".rightAnswer").append("<p> Correct answer is" + " " + currentAnswer + "</p>");
+        $(".rightAnswer").attr("style", 'color:red');
         cleanUpAfterSelection();
     }
 
@@ -188,22 +213,26 @@ $(document).ready(function () {
         $(".rightAnswer").removeClass("hidden");
         $(".rightAnswer").text("Times up!");
         $(".rightAnswer").append("<p> Correct answer is" + " " + currentAnswer + "</p>");
+        $(".rightAnswer").attr("style",'color:darkslategray');
         $(".timeRemaining").addClass("emptySpace");
         cleanUpAfterSelection();
     }
 
     function cleanUpForNewQuestion() {
         doneWithQuestion = false;
-        timer = 3;
+        timer = 10;
+        $(".correctPicture").addClass("hidden");
         $(".rightAnswer").addClass("hidden");
         $(".timeRemaining").removeClass("emptySpace");
         $(".timeLeft").text(timer);
         getCurrentAnswer();
         timeStart();
+
     }
 
     function questionOne() {
         cleanUpForNewQuestion();
+
         $(".currentQuestion").text(questionSet.question1);
         $(".answer1").text(questionSet.q1Options[0]);
         $(".answer2").text(questionSet.q1Options[1]);
@@ -228,6 +257,7 @@ $(document).ready(function () {
 
     function questionTwo() {
         cleanUpForNewQuestion();
+
         $(".currentQuestion").text(questionSet.question2);
         $(".answer1").text(questionSet.q2Options[0]);
         $(".answer2").text(questionSet.q2Options[1]);
@@ -243,6 +273,7 @@ $(document).ready(function () {
 
     function questionThree() {
         cleanUpForNewQuestion();
+
         $(".currentQuestion").text(questionSet.question3);
         $(".answer1").text(questionSet.q3Options[0]);
         $(".answer2").text(questionSet.q3Options[1]);
@@ -258,6 +289,7 @@ $(document).ready(function () {
 
     function questionFour() {
         cleanUpForNewQuestion();
+
         $(".currentQuestion").text(questionSet.question4);
         $(".answer1").text(questionSet.q4Options[0]);
         $(".answer2").text(questionSet.q4Options[1]);
@@ -273,6 +305,7 @@ $(document).ready(function () {
 
     function questionFive() {
         cleanUpForNewQuestion();
+
         $(".currentQuestion").text(questionSet.question5);
         $(".answer1").text(questionSet.q5Options[0]);
         $(".answer2").text(questionSet.q5Options[1]);
@@ -288,6 +321,7 @@ $(document).ready(function () {
 
     function questionSix() {
         cleanUpForNewQuestion();
+
         $(".currentQuestion").text(questionSet.question6);
         $(".answer1").text(questionSet.q6Options[0]);
         $(".answer2").text(questionSet.q6Options[1]);
@@ -302,14 +336,12 @@ $(document).ready(function () {
     }
 
     function gameStart() {
-        correctAnswers = 0;
-        wrongAnswers = 0;
-        unanswered = 0;
-        currentQuestionNumber = 1;
         $(".game").addClass("hidden");
         $(".refresh").addClass("hidden");
+        $(".correctPicture").addClass("hidden");
         $(".start").removeClass("hidden");
         $(".startButton").one("click", initialize);
+
     }
 
     gameStart();
