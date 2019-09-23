@@ -1,78 +1,42 @@
 var questionSet = {
 
     question1: "What Is The Boiling Point Of Water In Fahrenheit?",
-    q1Options: {
-        q1O1: "100 Degrees",
-        q1O2: "188 Degrees",
-        q1O3: "212 Degrees",
-        q1O4: "240 Degrees",
-        answer: "212 Degrees",
-    },
+    q1Options: ["100 Degrees", "188 Degrees", "212 Degrees", "240 Degrees", "212 Degrees"],
 
     question2: "What Is The Most Common Metal On Earth?",
-    q2Options: {
-        q2O1: "Iron", 
-        q2O2: "Copper",
-        q2O3: "Aluminum",
-        q2O4: "Nickel",
-        answer: "Aluminum",
-    },
+    q2Options: ["Iron", "Copper", "Aluminum", "Nickel", "Aluminum"],
 
     question3: "Which Bird Has The Best Sense Of Smell?",
-    q3Options: {
-        q3O1: "Bald Eagle",
-        q3O2: "Barn Owl",
-        q3O3: "Turkey Vulture",
-        q3O4: "Crow",
-        answer: "Turkey Vulture",
-    },
+    q3Options: ["Bald Eagle", "Turkey Vulture", "Barn Owl", "Crow", "Turkey Vulture"],
 
     question4: "Bees must collect nectar from approximately how many flowers to make 1 pound of honeycomb?",
-    q4Options: {
-        q4O1: "10 thousand",
-        q4O2: "2 million",
-        q4O3: "20 million",
-        q4O4: "50 million",
-        answer: "20 million",
-    },
+    q4Options: ["10 thousand", "2 million", "5 million", "20 million", "20 million"],
 
     question5: "The only species of cat that lives and hunts in groups is:",
-    q5Options: {
-        q5O1: "lion",
-        q5O2: "leopard",
-        q5O3: "jaguar",
-        q5O4: "cougar",
-        answer: "lion",
-    },
+    q5Options: ["Lion", "Leopard", "Jaguar", "Cougar", "Lion"],
 
     question6: "Where is the sea of Tranquility?",
-    q6Options: {
-        q6O1: "Atlantic Ocean",
-        q6O2: "On the moon",
-        q6O3: "Greece",
-        q6O4: "Indian Ocean",
-        answer: "On the moon",
-    },
+    q6Options: ["Atlantic Ocean", "On the Moon", "Greece", "Indian Ocean", "On the Moon"],
     //question7: "Which dwarf planet is closest to the Sun?",
     //question8: "What is the second longest bone in the human body?"
 }
 
+var correctAnswers = 0;
+var wrongAnswers = 0;
+var unanswered = 0;
 
-
-var correctAnswers;
-var wrongAnswers;
-var unanswered;
-
-var timer = 5;
+var timer = 3;
 
 var outOfTime = "Out of Time!";
 var incorrect = "Incorrect";
 var correct = "Correct!"
 
-var intervalId;
-
-var currentQuestionNumber;
+var currentQuestionNumber = 1;
 var currentAnswer;
+
+var doneWithQuestion;
+
+
 
 $(document).ready(function () {
 
@@ -81,35 +45,38 @@ $(document).ready(function () {
         $(".answer2").unbind("click");
         $(".answer3").unbind("click");
         $(".answer4").unbind("click");
-        $(".answer1").addClass("hidden");
-        $(".answer2").addClass("hidden");
-        $(".answer3").addClass("hidden");
-        $(".answer4").addClass("hidden");
+        $(".answers").addClass("hidden");
     }
 
-    function getCurrentAnswer (){
+    function showAnswers() {
+        $(".answers").removeClass("hidden");
+    }
+
+    function getCurrentAnswer() {
         if (currentQuestionNumber === 1) {
-            currentAnswer = questionSet.q1Options.answer;
+            currentAnswer = questionSet.q1Options[4];
         }
         else if (currentQuestionNumber === 2) {
-            currentAnswer = questionSet.q2Options.answer;
+            currentAnswer = questionSet.q2Options[4];
         }
         else if (currentQuestionNumber === 3) {
-            currentAnswer = questionSet.q3Options.answer;
+            currentAnswer = questionSet.q3Options[4];
         }
         else if (currentQuestionNumber === 4) {
-            currentAnswer = questionSet.q4Options.answer;
+            currentAnswer = questionSet.q4Options[4];
         }
         else if (currentQuestionNumber === 5) {
-            currentAnswer = questionSet.q5Options.answer;
+            currentAnswer = questionSet.q5Options[4];
         }
         else {
-            currentAnswer = questionSet.q6Options.answer;
+            currentAnswer = questionSet.q6Options[4];
         }
     }
+
 
     function timeStart() {
         intervalId = setInterval(decrement, 1000); // setting interval.  every 1 second, perform decrements 
+
     }
 
     function decrement() {
@@ -131,59 +98,122 @@ $(document).ready(function () {
         clearInterval(intervalId);  // emptys cubbyhole, remove setInterval
     }
 
-
-    function timeUp() {
-        wrongAnswers++;
-        $(".rightAnswer").text("Times up!");
-        $(".rightAnswer").append("<p> Correct answer is" + " " + currentAnswer + "</p>");
-    }
-
     function initialize() {
+
         $(".game").removeClass("hidden");
         $(".refresh").addClass("hidden");
         $(".start").addClass("hidden");
         $(".startButton").unbind("click");
+        $(".question").removeClass("hidden");
+        $(".correctAnswer").removeClass("hidden");
+        $(".answers").removeClass("hidden");
+        $(".timeRemaining").removeClass("hidden");
 
         questionOne();
+        
+
         //questionSet.q1Options.firstQuestion();
+    }
+
+    function endOfGame() {
+        $(".refresh").removeClass("hidden");
+        $(".timeRemaining").addClass("hidden");
+        $(".question").addClass("hidden");
+        $(".correctAnswer").addClass("hidden");
+        $(".answers").addClass("hidden");
+        $(".correctAnswers").text("You answered" + " " + correctAnswers + " " + "questions correctly!");
+        $(".wrongAnswers").text("You answered" + " " + wrongAnswers + " " + "questions wrong.");
+        $(".unanswered").text("Number of questions you didn't answer was:" + " " + unanswered);
+        $(".refreshButton").one("click", gameStart);
+
+    }
+
+    function goToNextQuestion() {
+        if (doneWithQuestion === true) {
+            console.log("going to next question");
+            if (currentQuestionNumber === 2) {
+                setTimeout(questionTwo, 1000);
+            }
+            else if (currentQuestionNumber === 3) {
+                setTimeout(questionThree, 1000);
+            }
+            else if (currentQuestionNumber === 4) {
+                setTimeout(questionFour, 1000);
+            }
+            else if (currentQuestionNumber === 5) {
+                setTimeout(questionFive, 1000);
+            }
+            else if (currentQuestionNumber === 6) {
+                setTimeout(questionSix, 1000);
+            }
+            else if (currentQuestionNumber === 7) {
+                setTimeout(endOfGame, 1000);
+            }
+
+        }
+    }
+
+    function cleanUpAfterSelection() {
+        hideAnswers();
+        stopTimer();
+        $(".timeRemaining").addClass("emptySpace");
+        doneWithQuestion = true;
+        currentQuestionNumber++;
+        goToNextQuestion();
     }
 
     function correct() {
         console.log("correct!");
-            hideAnswers();
-            correctAnswers++;
-            $(".rightAnswer").text("Correct!");
-            $(".rightAnswer").append("<p>" + currentAnswer + "</p>")
-            stopTimer();
-            $(".timeRemaining").addClass("emptySpace");
+        correctAnswers++;
+        console.log("You answered" + " " + correctAnswers + " " + "questions correctly!");
+        $(".rightAnswer").removeClass("hidden");
+        $(".rightAnswer").text("Correct!");
+        $(".rightAnswer").append("<p>" + currentAnswer + "</p>")
+        cleanUpAfterSelection();
+
     }
     function wrong() {
         console.log("wrong!");
-            hideAnswers();
-            wrongAnswers++;
-            $(".rightAnswer").text("Incorrect");
-            $(".rightAnswer").append("<p> Correct answer is" + " " + currentAnswer + "</p>");
-            stopTimer();
-            $(".timeRemaining").addClass("emptySpace");
+        wrongAnswers++;
+        console.log("You answered" + " " + wrongAnswers + " " + "wrong.");
+        $(".rightAnswer").removeClass("hidden");
+        $(".rightAnswer").text("Incorrect");
+        $(".rightAnswer").append("<p> Correct answer is" + " " + currentAnswer + "</p>");
+        cleanUpAfterSelection();
+    }
+
+    function timeUp() {
+        unanswered++;
+        console.log("You didn't answer" + " " + unanswered + " " + "questions.");
+        $(".rightAnswer").removeClass("hidden");
+        $(".rightAnswer").text("Times up!");
+        $(".rightAnswer").append("<p> Correct answer is" + " " + currentAnswer + "</p>");
+        $(".timeRemaining").addClass("emptySpace");
+        cleanUpAfterSelection();
+    }
+
+    function cleanUpForNewQuestion() {
+        doneWithQuestion = false;
+        timer = 3;
+        $(".rightAnswer").addClass("hidden");
+        $(".timeRemaining").removeClass("emptySpace");
+        $(".timeLeft").text(timer);
+        getCurrentAnswer();
+        timeStart();
     }
 
     function questionOne() {
-        currentQuestionNumber = 1;
-        getCurrentAnswer();
-        timeStart();
+        cleanUpForNewQuestion();
+        $(".currentQuestion").text(questionSet.question1);
+        $(".answer1").text(questionSet.q1Options[0]);
+        $(".answer2").text(questionSet.q1Options[1]);
+        $(".answer3").text(questionSet.q1Options[2]);
+        $(".answer4").text(questionSet.q1Options[3]);
 
-            console.log(questionSet.question1);
-            $(".currentQuestion").text(questionSet.question1);
-            $(".answer1").text(questionSet.q1Options.q1O1);
-            $(".answer2").text(questionSet.q1Options.q1O2);
-            $(".answer3").text(questionSet.q1Options.q1O3);
-            $(".answer4").text(questionSet.q1Options.q1O4);
-            $(".answer1").one("click", wrong);
-            $(".answer2").one("click", wrong);
-            $(".answer3").one("click", correct);
-            $(".answer4").one("click", wrong);
-
-
+        $(".answer1").one("click", wrong);
+        $(".answer2").one("click", wrong);
+        $(".answer3").one("click", correct);
+        $(".answer4").one("click", wrong);
         /*for (var i = 0; i < 7; i++) (function (i) {
 
             console.log(questionSet.question[i]);
@@ -196,10 +226,89 @@ $(document).ready(function () {
         } (i));*/
     }
 
+    function questionTwo() {
+        cleanUpForNewQuestion();
+        $(".currentQuestion").text(questionSet.question2);
+        $(".answer1").text(questionSet.q2Options[0]);
+        $(".answer2").text(questionSet.q2Options[1]);
+        $(".answer3").text(questionSet.q2Options[2]);
+        $(".answer4").text(questionSet.q2Options[3]);
+        showAnswers();
+
+        $(".answer1").one("click", wrong);
+        $(".answer2").one("click", wrong);
+        $(".answer3").one("click", correct);
+        $(".answer4").one("click", wrong);
+    }
+
+    function questionThree() {
+        cleanUpForNewQuestion();
+        $(".currentQuestion").text(questionSet.question3);
+        $(".answer1").text(questionSet.q3Options[0]);
+        $(".answer2").text(questionSet.q3Options[1]);
+        $(".answer3").text(questionSet.q3Options[2]);
+        $(".answer4").text(questionSet.q3Options[3]);
+        showAnswers();
+
+        $(".answer1").one("click", wrong);
+        $(".answer2").one("click", correct);
+        $(".answer3").one("click", wrong);
+        $(".answer4").one("click", wrong);
+    }
+
+    function questionFour() {
+        cleanUpForNewQuestion();
+        $(".currentQuestion").text(questionSet.question4);
+        $(".answer1").text(questionSet.q4Options[0]);
+        $(".answer2").text(questionSet.q4Options[1]);
+        $(".answer3").text(questionSet.q4Options[2]);
+        $(".answer4").text(questionSet.q4Options[3]);
+        showAnswers();
+
+        $(".answer1").one("click", wrong);
+        $(".answer2").one("click", wrong);
+        $(".answer3").one("click", wrong);
+        $(".answer4").one("click", correct);
+    }
+
+    function questionFive() {
+        cleanUpForNewQuestion();
+        $(".currentQuestion").text(questionSet.question5);
+        $(".answer1").text(questionSet.q5Options[0]);
+        $(".answer2").text(questionSet.q5Options[1]);
+        $(".answer3").text(questionSet.q5Options[2]);
+        $(".answer4").text(questionSet.q5Options[3]);
+        showAnswers();
+
+        $(".answer1").one("click", correct);
+        $(".answer2").one("click", wrong);
+        $(".answer3").one("click", wrong);
+        $(".answer4").one("click", wrong);
+    }
+
+    function questionSix() {
+        cleanUpForNewQuestion();
+        $(".currentQuestion").text(questionSet.question6);
+        $(".answer1").text(questionSet.q6Options[0]);
+        $(".answer2").text(questionSet.q6Options[1]);
+        $(".answer3").text(questionSet.q6Options[2]);
+        $(".answer4").text(questionSet.q6Options[3]);
+        showAnswers();
+
+        $(".answer1").one("click", wrong);
+        $(".answer2").one("click", correct);
+        $(".answer3").one("click", wrong);
+        $(".answer4").one("click", wrong);
+    }
 
     function gameStart() {
+        correctAnswers = 0;
+        wrongAnswers = 0;
+        unanswered = 0;
+        currentQuestionNumber = 1;
         $(".game").addClass("hidden");
         $(".refresh").addClass("hidden");
+        $(".start").removeClass("hidden");
         $(".startButton").one("click", initialize);
     }
 
