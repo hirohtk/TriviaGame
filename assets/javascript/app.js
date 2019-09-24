@@ -21,11 +21,13 @@ var questionSet = {
     //question8: "What is the second longest bone in the human body?"
 }
 
+
+
 var correctAnswers = 0;
 var wrongAnswers = 0;
 var unanswered = 0;
 
-var timer = 10;
+var timer = 7;
 
 var outOfTime = "Out of Time!";
 var incorrect = "Incorrect";
@@ -131,7 +133,7 @@ $(document).ready(function () {
         $(".correctPicture").addClass("hidden");
         $(".correctAnswers").text("You answered" + " " + correctAnswers + " " + "questions correctly!");
         $(".wrongAnswers").text("You answered" + " " + wrongAnswers + " " + "questions wrong.");
-        $(".unanswered").text("Number of questions you didn't answer was:" + " " + unanswered);
+        $(".unanswered").text("Number of questions you didn't answer in time:" + " " + unanswered);
         $(".refreshButton").one("click", initialize);
 
     }
@@ -142,31 +144,37 @@ $(document).ready(function () {
 
             console.log("going to next question");
             if (currentQuestionNumber === 2) {
+                $(".timeRemaining").removeClass("timeWarning");
                 $(".answerPicture").attr("src", "assets/images/water.gif");
                 $(".answerPicture").addClass("gifs");
                 setTimeout(questionTwo, 3000);
             }
             else if (currentQuestionNumber === 3) {
+                $(".timeRemaining").removeClass("timeWarning");
                 $(".answerPicture").attr("src", "assets/images/aluminum.gif");
                 $(".answerPicture").addClass("gifs");
                 setTimeout(questionThree, 3000);
             }
             else if (currentQuestionNumber === 4) {
+                $(".timeRemaining").removeClass("timeWarning");
                 $(".answerPicture").attr("src", "assets/images/vulture.gif");
                 $(".answerPicture").addClass("gifs");
                 setTimeout(questionFour, 3000);
             }
             else if (currentQuestionNumber === 5) {
+                $(".timeRemaining").removeClass("timeWarning");
                 $(".answerPicture").attr("src", "assets/images/bees.gif");
                 $(".answerPicture").addClass("gifs");
                 setTimeout(questionFive, 3000);
             }
             else if (currentQuestionNumber === 6) {
+                $(".timeRemaining").removeClass("timeWarning");
                 $(".answerPicture").attr("src", "assets/images/lion.gif");
                 $(".answerPicture").addClass("gifs");
                 setTimeout(questionSix, 3000);
             }
             else if (currentQuestionNumber === 7) {
+                $(".timeRemaining").removeClass("timeWarning");
                 $(".answerPicture").attr("src", "assets/images/moon.gif");
                 $(".answerPicture").addClass("gifs");
                 setTimeout(endOfGame, 3000);
@@ -220,7 +228,7 @@ $(document).ready(function () {
 
     function cleanUpForNewQuestion() {
         doneWithQuestion = false;
-        timer = 10;
+        timer = 7;
         $(".correctPicture").addClass("hidden");
         $(".rightAnswer").addClass("hidden");
         $(".timeRemaining").removeClass("emptySpace");
@@ -243,6 +251,7 @@ $(document).ready(function () {
         $(".answer2").one("click", wrong);
         $(".answer3").one("click", correct);
         $(".answer4").one("click", wrong);
+        $(".timeRemaining").addClass("timeWarning");
         /*for (var i = 0; i < 7; i++) (function (i) {
 
             console.log(questionSet.question[i]);
@@ -269,6 +278,7 @@ $(document).ready(function () {
         $(".answer2").one("click", wrong);
         $(".answer3").one("click", correct);
         $(".answer4").one("click", wrong);
+        $(".timeRemaining").addClass("timeWarning");
     }
 
     function questionThree() {
@@ -285,6 +295,7 @@ $(document).ready(function () {
         $(".answer2").one("click", correct);
         $(".answer3").one("click", wrong);
         $(".answer4").one("click", wrong);
+        $(".timeRemaining").addClass("timeWarning");
     }
 
     function questionFour() {
@@ -301,6 +312,7 @@ $(document).ready(function () {
         $(".answer2").one("click", wrong);
         $(".answer3").one("click", wrong);
         $(".answer4").one("click", correct);
+        $(".timeRemaining").addClass("timeWarning");
     }
 
     function questionFive() {
@@ -317,6 +329,7 @@ $(document).ready(function () {
         $(".answer2").one("click", wrong);
         $(".answer3").one("click", wrong);
         $(".answer4").one("click", wrong);
+        $(".timeRemaining").addClass("timeWarning");
     }
 
     function questionSix() {
@@ -333,6 +346,7 @@ $(document).ready(function () {
         $(".answer2").one("click", correct);
         $(".answer3").one("click", wrong);
         $(".answer4").one("click", wrong);
+        $(".timeRemaining").addClass("timeWarning");
     }
 
     function gameStart() {
@@ -348,3 +362,5 @@ $(document).ready(function () {
 
 
 });
+
+
