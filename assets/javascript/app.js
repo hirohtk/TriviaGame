@@ -200,7 +200,7 @@ $(document).ready(function () {
         $(".rightAnswer").removeClass("hidden");
         $(".rightAnswer").text("Correct!");
         $(".rightAnswer").append("<p>" + currentAnswer + "</p>")
-        $(".rightAnswer").attr("style", 'color:green');
+        $(".rightAnswer").attr("style", 'color:lightgreen');
         cleanUpAfterSelection();
 
     }
@@ -211,7 +211,7 @@ $(document).ready(function () {
         $(".rightAnswer").removeClass("hidden");
         $(".rightAnswer").text("Incorrect");
         $(".rightAnswer").append("<p> Correct answer is" + " " + currentAnswer + "</p>");
-        $(".rightAnswer").attr("style", 'color:red');
+        $(".rightAnswer").attr("style", 'color:palevioletred');
         cleanUpAfterSelection();
     }
 
@@ -221,7 +221,7 @@ $(document).ready(function () {
         $(".rightAnswer").removeClass("hidden");
         $(".rightAnswer").text("Times up!");
         $(".rightAnswer").append("<p> Correct answer is" + " " + currentAnswer + "</p>");
-        $(".rightAnswer").attr("style",'color:darkslategray');
+        $(".rightAnswer").attr("style",'color:white;');
         $(".timeRemaining").addClass("emptySpace");
         cleanUpAfterSelection();
     }

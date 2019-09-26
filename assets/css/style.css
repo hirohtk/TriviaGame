@@ -1,6 +1,26 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
+
+.bg {
+    background-image: url("https://66.media.tumblr.com/70ebd1f6d3a29d019de127909e8ed94f/tumblr_oya8gndrCI1qeyvpto1_500.gif");
+    background-size: cover;
+    background-position-y: 25%;
+    height: 100%;
+    width: 100%;
+}
+
+
 .jumbotron {
-    background-image: url(/assets/images/palm-leaf.png)
+    background-color: rgba(211, 211, 211, 0.0);
     
+    /*border: 1px ridge ;
+    border-color: rgba(211, 211, 211, 0.5);*/
 }
 
 .hidden {
@@ -14,25 +34,53 @@
 .gifs {
     height: 10rem;
     width: 16rem;
+    margin-left: 3rem;
 }
 
 .card {
-    width: 60rem;
+    width: 65rem;
     height: 30rem;
     margin-left: auto;
     margin-right: auto;
-    border: 1px ridge gold;
-    
+    border: 1px ridge white;
+    background-color: rgba(211, 211, 211, 0.3);
     
 }
 
-button {
-    margin-left: 27rem;
+.startButton {
+    margin-left: 30rem;
+    width: 5rem;
+    height: 2rem;
+    border: none;
 }
 
-.timeRemaining, .question, .correctAnswer, .answers, .stats {
+.startButton:hover {
+    background-color: goldenrod;
+    transition: 0.5s;
+}
+
+.refreshButtonActual {
+    margin-left: 28rem;
+    width: 8rem;
+    height: 3rem;
+    border: none;
+}
+
+.refreshButtonActual:hover {
+    background-color: goldenrod;
+    transition: 0.5s;
+}
+
+.timeRemaining {
     text-align: center;
     margin-top: 2rem;
+    background-color: rgba(233, 227, 227, 0.5);
+    color: black;
+}
+.question, .correctAnswer, .answers, .stats {
+    text-align: center;
+    margin-top: 2rem;
+    color: white;
 }
 
 .correctAnswer {
@@ -44,21 +92,18 @@ button {
     text-decoration: underline;
 }
 
-@keyframes flashred {
-    0% {background-color: #FF4136;}
-    100% {background-color: white;}
-}
+
 
 @keyframes flash {
-    0% {background-color: orange;}
+    0% {background-color: gold;}
     50% {background-color: red;}
-    100% {background-color: white;}
+    100% {background-color: rgba(211, 211, 211, 0.3);}
 }
 
 .timeWarning {
     border: 1px solid gray;
     width: 35%;
-    margin-left: 20rem;
+    margin-left: 21.5rem;
     font-weight: bold;
     animation-delay: 2s;
     animation-name: flash;
@@ -66,7 +111,21 @@ button {
     animation-iteration-count: 5;
     margin-top: 4rem;
     margin-bottom: 3rem;
+    
+}
 
+/*24, 81, 187*/
+@keyframes titleDistraction {
+    0% {color: lightskyblue;}
+    25% {color: rgb(21, 85, 204);}
+    50% {color: rgb(21, 85, 204);}
+    100% {color:lightskyblue;}
+}
+
+.titleDistraction {
+    animation-name: titleDistraction;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
 }
 
 .start {
@@ -74,9 +133,11 @@ button {
 }
 
 
-
-
 .correctPicture {
     margin-left: 22rem;
 }
 
+p.answer1:hover, p.answer2:hover, p.answer3:hover, p.answer4:hover  {
+    color: goldenrod;
+    transition: 0.5s;
+}
