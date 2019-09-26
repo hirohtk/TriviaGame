@@ -27,7 +27,7 @@ var correctAnswers = 0;
 var wrongAnswers = 0;
 var unanswered = 0;
 
-var timer = 7;
+var timer = 10;
 
 var outOfTime = "Out of Time!";
 var incorrect = "Incorrect";
@@ -228,7 +228,7 @@ $(document).ready(function () {
 
     function cleanUpForNewQuestion() {
         doneWithQuestion = false;
-        timer = 7;
+        timer = 10;
         $(".correctPicture").addClass("hidden");
         $(".rightAnswer").addClass("hidden");
         $(".timeRemaining").removeClass("emptySpace");
