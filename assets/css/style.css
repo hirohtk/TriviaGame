@@ -105,7 +105,7 @@ body {
     width: 35%;
     margin-left: 21.5rem;
     font-weight: bold;
-    animation-delay: 2s;
+    animation-delay: 5s;
     animation-name: flash;
     animation-duration: 1s;
     animation-iteration-count: 5;
